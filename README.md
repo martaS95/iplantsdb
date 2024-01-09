@@ -1,2 +1,2 @@
 # iplantsdb
-iplantsdb API
+iplantsdb update and API
