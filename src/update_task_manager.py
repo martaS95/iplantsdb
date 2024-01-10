@@ -7,7 +7,7 @@ from transformer import TransformerMetabolite, TransformerReaction, TransformerE
     TransformerPathway, TransformerOrganism
 from iplants_mongo.mongodb_update import DatabaseMongoUpdate
 from iplants_neo.neodb_update import DatabaseNeoUpdate
-from download_database import DownloadPMNDatabase, DownloadMetaDatabase
+from download_database import DownloadPMNDatabase
 import logging
 from utils.config import PROJECT_PATH
 
@@ -32,10 +32,10 @@ class DownloadData(luigi.Task):
     def run(self):
         if self.db not in ['biocyc', 'metacyc']:
             db = DownloadPMNDatabase(db_name=self.db, version=self.version)
+            db.download()
         else:
-            db = DownloadMetaDatabase(db_name=self.db, version=self.version)
-
-        db.download()
+            # db = DownloadMetaDatabase(db_name=self.db, version=self.version)
+            logging.info('Download of metacyc or biocyc databases requires paid subscription since Jan 1st 2024')
 
 
 class TransformData(luigi.Task):
