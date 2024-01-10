@@ -1,16 +1,16 @@
 # from django.shortcuts import render
-
 import json
-
-import neomodel
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
-from neomodel import match
+from neomodel import match, DoesNotExist
 from iplants_neo.models import Metabolite, Reaction, Enzyme, Gene, Pathway, Organism, MetabolicModel
 from iplants_neo.serializers import MetabolicModelSerializer
+from drf_spectacular.utils import extend_schema, inline_serializer
+from rest_framework import serializers
 
 
+@extend_schema(responses={'200': inline_serializer('ser2', fields={'metabolites': serializers.ListField()})})
 @api_view(['GET'])
 def list_all_metabolites_view(request):
     """
@@ -40,6 +40,7 @@ def list_all_metabolites_view(request):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser3', fields={'reactions': serializers.ListField()})})
 @api_view(['GET'])
 def list_all_reactions_view(request):
     """
@@ -69,6 +70,7 @@ def list_all_reactions_view(request):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser4', fields={'enzymes': serializers.ListField()})})
 @api_view(['GET'])
 def list_all_enzymes_view(request):
     """
@@ -98,6 +100,7 @@ def list_all_enzymes_view(request):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser5', fields={'genes': serializers.ListField()})})
 @api_view(['GET'])
 def list_all_genes_view(request):
     """
@@ -128,6 +131,7 @@ def list_all_genes_view(request):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser6', fields={'pathways': serializers.ListField()})})
 @api_view(['GET'])
 def list_all_pathways_view(request):
     """
@@ -158,6 +162,7 @@ def list_all_pathways_view(request):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser7', fields={'organisms': serializers.ListField()})})
 @api_view(['GET'])
 def list_all_organisms_view(request):
     """
@@ -186,6 +191,7 @@ def list_all_organisms_view(request):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser8', fields={'reactions': serializers.ListField()})})
 @api_view(['GET'])
 def get_reactions_of_enzyme_view(request, enzid):
     """
@@ -214,6 +220,7 @@ def get_reactions_of_enzyme_view(request, enzid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser9', fields={'metabolites': serializers.ListField()})})
 @api_view(['GET'])
 def get_metabolites_of_reaction_view(request, reacid):
     """
@@ -245,6 +252,7 @@ def get_metabolites_of_reaction_view(request, reacid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser10', fields={'enzymes': serializers.ListField()})})
 @api_view(['GET'])
 def get_enzymes_of_reaction_view(request, reacid):
     """
@@ -277,6 +285,7 @@ def get_enzymes_of_reaction_view(request, reacid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser11', fields={'pathways': serializers.ListField()})})
 @api_view(['GET'])
 def get_pathways_of_reaction_view(request, reacid):
     """
@@ -308,6 +317,7 @@ def get_pathways_of_reaction_view(request, reacid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser12', fields={'components': serializers.ListField()})})
 @api_view(['GET'])
 def get_components_of_enzyme_view(request, enzid):
     """
@@ -336,6 +346,7 @@ def get_components_of_enzyme_view(request, enzid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser13', fields={'metabolites': serializers.ListField()})})
 @api_view(['GET'])
 def get_metabolites_of_model_view(request, modelid):
     """
@@ -363,6 +374,7 @@ def get_metabolites_of_model_view(request, modelid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser14', fields={'reactions': serializers.ListField()})})
 @api_view(['GET'])
 def get_reactions_of_model_view(request, modelid):
     """
@@ -390,6 +402,7 @@ def get_reactions_of_model_view(request, modelid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser15', fields={'enzymes': serializers.ListField()})})
 @api_view(['GET'])
 def get_enzymes_of_model_view(request, modelid):
     """
@@ -489,7 +502,7 @@ def add_rels_reactions_model_view(request, modelid, reactions):
             try:
                 reac_node = Reaction.nodes.get(entry_id=reac)
                 mm_node.reactions.connect(reac_node)
-            except neomodel.DoesNotExist:
+            except DoesNotExist:
                 pass
 
         return JsonResponse({modelid: [reac.entry_id for reac in mm_node.reactions.all()]}, status=200)
@@ -524,7 +537,7 @@ def add_rels_metabolites_model_view(request, modelid, metabolites):
             try:
                 met_node = Metabolite.nodes.get(entry_id=met)
                 mm_node.metabolites.connect(met_node)
-            except neomodel.DoesNotExist:
+            except DoesNotExist:
                 pass
 
         return JsonResponse({modelid: [met.entry_id for met in mm_node.metabolites.all()]}, status=200)
@@ -652,4 +665,3 @@ def add_update_reaction_node_view(request, modelid):
         except:
             response = {"error": "An error has occurred"}
             return JsonResponse(response, safe=False, status=400)
-

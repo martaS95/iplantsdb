@@ -2,7 +2,7 @@
 
 # Create your views here.
 from iplants_mongo.models import Metabolite, Reaction, Enzyme, Gene, Pathway, MetabolicModel, Organism
-from iplants_mongo.serializers import MetabolicModelSerializer, ReactionSerializer
+from iplants_mongo.serializers import *
 from django.http import JsonResponse, FileResponse
 from django.core.files.storage import FileSystemStorage
 from mongoengine import DoesNotExist
@@ -15,8 +15,10 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 import os
 from utils.config import PROJECT_PATH
+from drf_spectacular.utils import extend_schema, inline_serializer
 
 
+@extend_schema(responses=MetaboliteSerializer)
 @api_view(['GET'])
 def get_metabolite_detail_view(request, metid):
     """
@@ -48,6 +50,7 @@ def get_metabolite_detail_view(request, metid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses=ReactionSerializer)
 @api_view(['GET'])
 def get_reaction_detail_view(request, reacid):
     """
@@ -86,6 +89,7 @@ def get_reaction_detail_view(request, reacid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses=EnzymeSerializer)
 @api_view(['GET'])
 def get_enzyme_detail_view(request, enzid):
     """
@@ -124,6 +128,7 @@ def get_enzyme_detail_view(request, enzid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses=GeneSerializer)
 @api_view(['GET'])
 def get_gene_detail_view(request, geneid):
     """
@@ -162,6 +167,7 @@ def get_gene_detail_view(request, geneid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses=PathwaySerializer)
 @api_view(['GET'])
 def get_pathway_detail_view(request, pathid):
     """
@@ -200,6 +206,7 @@ def get_pathway_detail_view(request, pathid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses=OrganismSerializer)
 @api_view(['GET'])
 def get_organism_detail_view(request, orgid):
     """
@@ -237,6 +244,7 @@ def get_organism_detail_view(request, orgid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses=MetabolicModelSerializer)
 @api_view(['GET'])
 def get_metabolicmodel_detail_view(request, modelid):
     """
@@ -268,6 +276,7 @@ def get_metabolicmodel_detail_view(request, modelid):
             return JsonResponse(response, safe=False, status=404)
 
 
+@extend_schema(responses={'200': inline_serializer('ser1', fields={'enzymes': serializers.ListField()})})
 @api_view(['GET'])
 def get_enzymes_of_reaction_doc_view(request, reacid):
     """
@@ -288,7 +297,7 @@ def get_enzymes_of_reaction_doc_view(request, reacid):
             enzymes = []
             for key in reac.enzymes:
                 enzymes.extend(reac.enzymes[key])
-            response = {list(set(enzymes))}
+            response = {'enzymes': list(set(enzymes))}
             return JsonResponse(response, safe=False, status=200)
 
         except:
@@ -735,4 +744,3 @@ def download_aa_sequences(request):
                             content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="protein_sequences.fasta"'
     return response
-
