@@ -13,3 +13,23 @@ class MetabolicModelSerializer(serializers.Serializer):
     taxid = serializers.IntegerField()
     year = serializers.IntegerField()
     author = serializers.CharField()
+
+
+class MetaboliteListSerializer(serializers.Serializer):
+
+    metabolites = serializers.ListField()
+
+
+class ReactionListSerializer(serializers.Serializer):
+
+    reactions = serializers.ListField()
+
+
+class EnzymesListSerializer(serializers.Serializer):
+
+    enzymes = serializers.ListField()
+
+
+class PathwayListSerializer(serializers.Serializer):
+
+    pathways = serializers.ListField()

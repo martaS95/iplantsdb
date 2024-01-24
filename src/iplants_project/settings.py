@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'background_task',
     'rest_framework',
     'iplants_neo',
     'iplants_mongo',
@@ -171,7 +170,7 @@ REST_FRAMEWORK = {
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'iplants API',
-    'DESCRIPTION': 'API to get data from iplants repository',
+    'DESCRIPTION': 'API to get data from iplants repository. Searches can be performed using biocyc identifiers.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS

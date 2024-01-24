@@ -20,22 +20,7 @@ Including another URLconf
 #     path('admin/', admin.site.urls),
 # ]
 
-"""plantdb URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.9/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Add an import:  from blog import urls as blog_urls
-    2. Import the include() function: from django.conf.urls import url, include
-    3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
-"""
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
@@ -43,7 +28,7 @@ from django.urls import path
 from iplants_mongo.views import *
 from iplants_neo.views import *
 from .views import *
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
     path("schema", SpectacularAPIView.as_view(), name='schema'),
@@ -66,8 +51,7 @@ urlpatterns = [
     path("list/reactions/enzyme/<str:enzid>", get_reactions_of_enzyme_view),
     path("list/components/enzyme/<str:enzid>", get_components_of_enzyme_view),
     path("list/metabolites/reaction/<str:reacid>", get_metabolites_of_reaction_view),
-    path("list/enzymes/reaction/<str:reacid>", get_enzymes_of_reaction_view),
-    path("list/enzymes/reaction/doc/<str:reacid>", get_enzymes_of_reaction_doc_view),
+    path("list/enzymes/reaction/<str:reacid>", get_enzymes_of_reaction_doc_view),
     path("list/pathways/reaction/<str:reacid>", get_pathways_of_reaction_view),
     path("list/metabolites/model/<str:modelid>", get_metabolites_of_model_view),
     path("list/reactions/model/<str:modelid>", get_reactions_of_model_view),
@@ -94,10 +78,11 @@ urlpatterns = [
     path("list/get_protein_sequences/", download_aa_sequences),
 
     path("integratemodel/<modelid>/<organism>/<taxid>/<year>/<author>", integrate_plant_model),
-
-    #path("integratemodelmongo/<modelid>/<organism>/<taxid>/<year>/<author>", integrate_metabolic_model_mongo),
-    #path("integratemodelneo/<modelid>/<organism>/<taxid>/<year>/<author>", integrate_metabolic_model_neo),
-    path("updatedatabase/<str:version>/<str:dbname>", UpdatedbView),
+    path('updatedatabase/metacyc/<str:version>/<str:username>/<str:password>/<path:download_link>/',
+            UpdatedbMetaView),
+    path("updatedatabase/plantcyc/<str:version>/", UpdatedbPlantView),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

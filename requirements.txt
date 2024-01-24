@@ -1,6 +1,6 @@
 pandas==1.5.3
 requests==2.31.0
-django==4.1
+django==4.0
 neomodel==5.2.1
 djangorestframework==3.14.0
 mongoengine==0.27.0
@@ -9,5 +9,4 @@ luigi==3.0.3
 biopython==1.79
 cobra==0.25.0
 taxoniq==1.0.1
-django4-background-tasks==1.2.9
 drf-spectacular==0.27.0

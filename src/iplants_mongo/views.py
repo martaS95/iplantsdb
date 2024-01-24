@@ -2,7 +2,9 @@
 
 # Create your views here.
 from iplants_mongo.models import Metabolite, Reaction, Enzyme, Gene, Pathway, MetabolicModel, Organism
-from iplants_mongo.serializers import *
+from iplants_mongo.serializers import (MetabolicModelSerializer, MetaboliteSerializer, ReactionSerializer,
+                                       EnzymeSerializer, GeneSerializer, PathwaySerializer, OrganismSerializer)
+from iplants_neo.serializers import EnzymesListSerializer
 from django.http import JsonResponse, FileResponse
 from django.core.files.storage import FileSystemStorage
 from mongoengine import DoesNotExist
@@ -15,7 +17,7 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 import os
 from utils.config import PROJECT_PATH
-from drf_spectacular.utils import extend_schema, inline_serializer
+from drf_spectacular.utils import extend_schema
 
 
 @extend_schema(responses=MetaboliteSerializer)
@@ -276,7 +278,7 @@ def get_metabolicmodel_detail_view(request, modelid):
             return JsonResponse(response, safe=False, status=404)
 
 
-@extend_schema(responses={'200': inline_serializer('ser1', fields={'enzymes': serializers.ListField()})})
+@extend_schema(responses=EnzymesListSerializer)
 @api_view(['GET'])
 def get_enzymes_of_reaction_doc_view(request, reacid):
     """

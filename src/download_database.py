@@ -94,12 +94,13 @@ class DownloadMetaDatabase(DownloadDatabase):
     Class to download the new version of a biocyc database (BIOCYC resource) (only BIOCYC and METACYC are free)
     """
 
-    def __init__(self, db_name, version, username='biocyc-flatfiles', password='data-20541'):
+    def __init__(self, db_name, version, username, password, download_link):
 
         super().__init__(db_name, version)
 
         self._username = username
         self._password = password
+        self.download_link = download_link
 
     @property
     def username(self) -> str:
@@ -126,11 +127,15 @@ class DownloadMetaDatabase(DownloadDatabase):
 
         db_version = self.db + '_' + self.version
 
-        link = 'https://brg-files.ai.sri.com/public/dist/meta.tar.gz'
+        link = self.download_link
         download_path = os.path.join(self.project_path, 'downloads')
         download = os.path.join(download_path, self.db + '.tar.gz')
 
-        req = urllib.request.Request(link)
+        try:
+            req = urllib.request.Request(link)
+        except:
+            raise 'link not valid'
+
         base64string = base64.b64encode(bytes('{}:{}'.format(self.username, self.password), 'ascii'))
         req.add_header('Authorization', 'Basic {}'.format(base64string.decode('utf-8')))
 
@@ -153,8 +158,12 @@ class DownloadMetaDatabase(DownloadDatabase):
 
             with open(outputfile, 'w') as output:
                 output.write(message)
+
+            return True
+
         else:
             logging.info('Some error has occorred. The ' + self.db + ' database was not downloaded')
+            raise 'An error has occorred'
 
     def get_new_version(self):
         version_path = os.path.join(self.project_path, 'downloads', self.db)

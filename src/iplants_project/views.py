@@ -8,19 +8,50 @@ from plant_models.model_integration import ModelIntegrationNeo, ModelIntegration
 
 
 @api_view(['POST'])
-def UpdatedbView(request, dbname, version):
+def UpdatedbPlantView(request, version: str):
     """
+    View to update the plantcyc data in iplants database.
     Parameters
     ----------
     request: request
         API request to perform the update
-    dbname: str
-        name of the database: 'plantcyc' or 'metacyc'
     version: str
         database version number
     """
-    execute_update_pipeline(dbname=dbname, version=version)
-    return HttpResponse('database update has started')
+    try:
+        execute_update_pipeline(dbname='plantcyc', version=version)
+        return HttpResponse('database update has started')
+    except:
+        return HttpResponse('An error has occorred during luigi workflow')
+
+
+@api_view(['POST'])
+def UpdatedbMetaView(request, version, username, password, download_link):
+    """
+    View to update the Metacyc data in iplants databas.
+    Since January 2024, MetaCyc requires a paid subscription for accessing the data.
+    Thefore, a username and password of a paid subscription is needed to perform the download.
+    Also, the download link for the tar.gz file need to be provided
+    Parameters
+    ----------
+    request: request
+        API request to perform the update
+    version: str
+        database version number
+    username: str
+        username of MetaCyc account with a paid subscription
+    password: str
+        password of the MetaCyc paid account
+    download_link: str
+        link for the tar.gz to be downloaded
+    """
+    try:
+        execute_update_pipeline(dbname='metacyc', version=version, username=username, password=password,
+                                download_link=download_link)
+
+        return HttpResponse('database update was performed')
+    except:
+        return HttpResponse('An error has occorred during luigi workflow')
 
 
 @csrf_exempt
