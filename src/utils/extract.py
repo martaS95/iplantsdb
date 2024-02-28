@@ -7,6 +7,10 @@ from .config import PROJECT_PATH
 import xml.etree.ElementTree as ETe
 import requests
 from typing import Union
+from configparser import RawConfigParser
+
+db_configs = RawConfigParser()
+db_configs.read('/conf/iplantdb.conf')
 
 
 def data_by_record(filename: str) -> list:
@@ -293,7 +297,7 @@ def get_sequence_gene(ncbi_id: str) -> Union[str, None]:
     sequence: str
         gene nucleotide sequence
     """
-    Entrez.email = "msampaio@ceb.uminho.pt"
+    Entrez.email = str(db_configs.get('iplants-databases-configurations', 'biocyc_email'))
     try:
         handle = Entrez.efetch(db="nucleotide", id=ncbi_id, rettype="gb", retmode="txt")
     except urllib.error.HTTPError:
@@ -377,8 +381,10 @@ def taxid_biocyc_api(org: str) -> Union[int, None]:
 
     try:
         s = requests.Session()
-        s.post('https://websvc.biocyc.org/credentials/login/', data={'email': 'msampaio@ceb.uminho.pt',
-                                                                     'password': 'jensenackles'})
+        s.post('https://websvc.biocyc.org/credentials/login/',
+               data={'email': str(db_configs.get('iplants-databases-configurations', 'biocyc_email')),
+                     'password': str(db_configs.get('iplants-databases-configurations',
+                                                    'biocyc_password'))})
         res = s.get(api)
         tree = ETe.fromstring(res.content)
         for child in tree.iter():

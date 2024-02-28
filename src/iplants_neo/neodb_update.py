@@ -419,11 +419,11 @@ class DatabaseNeoUpdate:
 
         check = files_exist(new_files_path)
         if check:
-            # self.update_metabolite(new_data_file=new_files_path[0])
-            # self.update_reaction(new_data_file=new_files_path[1])
-            # self.update_enzyme(new_data_file=new_files_path[2])
+            self.update_metabolite(new_data_file=new_files_path[0])
+            self.update_reaction(new_data_file=new_files_path[1])
+            self.update_enzyme(new_data_file=new_files_path[2])
             self.update_gene(new_data_file=new_files_path[3])
-            # self.update_pathway(new_data_file=new_files_path[4])
+            self.update_pathway(new_data_file=new_files_path[4])
 
             message = 'The neo4j database was updated'
 

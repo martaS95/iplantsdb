@@ -41,7 +41,7 @@ class DownloadData(luigi.Task):
             if not self.username:
                 raise 'A paid account is needed for downloading MetaCyc'
             else:
-                db = DownloadMetaDatabase(db_name=self.db, version=self.version, username=self.version,
+                db = DownloadMetaDatabase(db_name=self.db, version=self.version, username=self.username,
                                           password=self.password, download_link=self.download_link)
                 db.download()
 

@@ -16,6 +16,10 @@ import os
 
 from neomodel import config
 import mongoengine
+from configparser import RawConfigParser
+
+db_configs = RawConfigParser()
+db_configs.read('/conf/iplantdb.conf')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,8 +34,7 @@ SECRET_KEY = 'django-insecure-g2r+2-y@euae!tc94ln2&-&8i(@vkv__w9npe-hvu0@6*9)5bl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [str(db_configs.get('iplants-databases-configurations', 'iplants_api'))]
 
 # Application definition
 
@@ -89,20 +92,21 @@ DATABASES = {
     }
 }
 
+
 MONGODB_DATABASES = {
     "default": {
-        "name": "plantcyc",
-        "host": "palsson.di.uminho.pt",
-        "port": 1017,
+        "name": str(db_configs.get('iplants-databases-configurations', 'mongodb_name')),
+        "host": str(db_configs.get('iplants-databases-configurations', 'mongodb_host')),
+        "port": int(db_configs.get('iplants-databases-configurations', 'mongodb_port')),
     }
 }
 
 NEO4J_DATABASES = {
     "default": {
-        "username": "neo4j",
-        "password": "plant",
-        "host": "palsson.di.uminho.pt",
-        "port": 1087
+        "username": str(db_configs.get('iplants-databases-configurations', 'neo4j_user')),
+        "password": str(db_configs.get('iplants-databases-configurations', 'neo4j_pass')),
+        "host": str(db_configs.get('iplants-databases-configurations', 'neo4j_host')),
+        "port": int(db_configs.get('iplants-databases-configurations', 'neo4j_port'))
     }
 }
 
@@ -113,11 +117,6 @@ neo4j_url = "bolt://" + NEO4J_DATABASES[db]["username"] + ':' + NEO4J_DATABASES[
             NEO4J_DATABASES[db]["host"] + ':' + str(NEO4J_DATABASES[db]["port"])
 config.DATABASE_URL = neo4j_url
 
-# db = 'default'
-
-host = 'palsson.di.uminho.pt'
-port = 1017
-database = 'plantdb'
 mongoengine.connect(MONGODB_DATABASES[db]["name"], host=MONGODB_DATABASES[db]["host"],
                     port=MONGODB_DATABASES[db]["port"])
 

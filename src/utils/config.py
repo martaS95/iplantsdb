@@ -1,26 +1,28 @@
-import os
+PROJECT_PATH = '/iplantsdb'
+from configparser import RawConfigParser
 
-PROJECT_PATH = 'C:/Users/BiSBII/Documents/iplantsdb'
+db_configs = RawConfigParser()
+db_configs.read('/conf/iplantdb.conf')
 
 
 class Mongo:
-    host = 'palsson.di.uminho.pt'
-    port = 1017
-    database = 'plantcyc'
+    host = str(db_configs.get('iplants-databases-configurations', 'mongodb_host')),
+    port = int(db_configs.get('iplants-databases-configurations', 'mongodb_port')),
+    database = str(db_configs.get('iplants-databases-configurations', 'mongodb_name'))
 
 
 class Neo:
-    host = 'palsson.di.uminho.pt'
-    port = 1087
-    username = 'neo4j'
-    password = 'plant'
+    host = str(db_configs.get('iplants-databases-configurations', 'neo4j_host'))
+    port = int(db_configs.get('iplants-databases-configurations', 'neo4j_port'))
+    username = str(db_configs.get('iplants-databases-configurations', 'neo4j_user'))
+    password = str(db_configs.get('iplants-databases-configurations', 'neo4j_pass'))
 
 
 class API:
     """
     Change API base_url when updated
     """
-    base_url = "http://127.0.0.1:8000"
+    base_url = str(db_configs.get('iplants-databases-configurations', 'iplants_api'))
     create_node_model = '/create_model/model_node/'
     create_doc_model = '/create_model/model_doc/'
     reactions_from_enzyme = '/list/reactions/enzyme/'
