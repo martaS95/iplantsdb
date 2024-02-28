@@ -19,7 +19,7 @@ import mongoengine
 from configparser import RawConfigParser
 
 db_configs = RawConfigParser()
-db_configs.read('/conf/iplantdb.conf')
+db_configs.read('/iplantsdb/conf/iplantsdb.conf')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

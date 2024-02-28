@@ -2,7 +2,7 @@ PROJECT_PATH = '/iplantsdb'
 from configparser import RawConfigParser
 
 db_configs = RawConfigParser()
-db_configs.read('/conf/iplantdb.conf')
+db_configs.read('/iplantsdb/conf/iplantsdb.conf')
 
 
 class Mongo:
