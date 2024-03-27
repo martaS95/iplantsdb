@@ -1,0 +1,38 @@
+UNIQUE-ID - PWY-7260
+TYPES - ANTHOCYANIN-SYN
+COMMON-NAME - delphinidin diglucoside biosynthesis (acyl-glucose dependent)
+CITATIONS - Harborne66
+CITATIONS - 11511673
+CITATIONS - Eisner02
+CITATIONS - Yonekura-Sakakibara09
+CITATIONS - Davies09
+CITATIONS - 11140528:EV-EXP:3574545826:hartmut
+CITATIONS - Kondo91:EV-EXP:3574545826:hartmut
+CITATIONS - 18343601:EV-EXP:3574545958:hartmut
+CITATIONS - 15907963:EV-EXP:3574545958:hartmut
+CITATIONS - 10724183:EV-EXP:3574545958:hartmut
+CITATIONS - 20971893:EV-EXP-IDA:3574545958:hartmut
+CITATIONS - 22048706:EV-EXP-IDA:3574545958:hartmut
+CITATIONS - 22673029:EV-EXP-IDA:3574545958:hartmut
+CITATIONS - Miyahara11:EV-EXP:3574545958:hartmut
+COMMENT - Anthocyanin biosynthesis is a crucial biochemical process involved in the flower development of many angiosperms. Flavonoid pigments provide the means to attract pollinators through bright colors |CITS:[Harborne66]| and/or certain color patterns |CITS:[11511673]| |CITS:[Eisner02]|. Research over the last decades on anthocyanin biosynthesis has led to the discovery of many genes involved in the pathway. Advanced gene technologies enabled molecular breeding of flower colors in many commercially valuable ornamental species such as carnation resulting in novel and intriguing colors and hues |CITS:[Yonekura-Sakakibara09]|.
+/
+/Anthocyanins are most often decorated with glucose or other sugar moieties at the 3-position (A-ring) and the 5- and 7-position of the C-ring. Among the most prominent anthocyanins in |FRAME:TAX-3570 <i>Dianthus caryophyllus</i>| (carnation) are cyclic 3,5-malyl anthocyanins (|FRAME:CPD-15294 3,5-di-<i>O</i>-(&beta;-glucopyranosyl) pelargonidin 6"-<i>O</i>-4,6"'-<i>O</i>-1-cyclic malate|, |FRAME:CPD-15295 3,5-di-<i>O</i>-(&beta;-glucopyranosyl) cyanidin 6"-<i>O</i>-4,6"'-<i>O</i>-1-cyclic malate|) |CITS:[11140528]|. However, the 5-<i>O</i>-glucosylation had not yet been elucidated. Likewise in |FRAME:TAX-46246 <i>Delphinium</i>| the main anthocyanin, i.e. cyanodelphin, a tetra p-hydroxybenzoated anthocyanin |CITS:[Kondo91]| is glucosylated at both 3 and 7 position but the 7-<i>O</i>-glucosylation remained unresolved as well |CITS:[Davies09]|. The monocotyledone |FRAME:TAX-51501 <i>Agapanthus africanus</i>|, a popular ornamental plant because of the blue and white flower colors which also is frequently used as a traditional medicine in South Africa has become the object of major studies regarding relevant pharmacological properties |CITS:[18343601] [15907963]|. The two main anthocyanins are 3,7-glucosylated delphinidin coumaroyl glucoside linked to a variety of kaempferol glycosides |CITS:[10724183]|. 
+/
+/Despite the taxonomic distance between the species mentioned above, i.e. the dicotyledones carnation (<i>Caryophyllacea</i>) and delphinium (|FRAME:TAX-3440 <i>Ranunculaceae</i>|) and the monocotyledone |FRAME:TAX-51426 <i>Agapanthus</i>| (|FRAME:TAX-4668 <i>Amaryllidaceae</i>|) all species have glucosyltransferases that realize either the 5-<i>O</i>- or 7-<i>O</i>-glucosylation. Instead of the usual sugar donor |FRAME: CPD-12575 UDP-&alpha;-D-glucose| the glucosyltransferases utilize acyl-glucoses such as the benzoyl-glucose derivatives |FRAME:CPD-15006 1-<i>O</i>-vanilloyl-&beta;-D-glucose|, |FRAME:CPD-15283 1-<i>O</i>-4-hydroxybenzoyl-&beta;-<i>D</i>-glucose| and |FRAME:CPD-15281 1-<i>O</i>-feruloyl-&beta;-<i>D</i>-glucose| and the hydroxycinnamoyl-glucose derivatives |FRAME:CPD-15281 1-<i>O</i>-feruloyl-&beta;-<i>D</i>-glucose| and |FRAME:1-O-SINAPOYL-BETA-D-GLUCOSE 1-<i>O</i>-sinapoyl-&beta;-D-glucose| as glucose donors |CITS:[20971893] [22048706] [22673029]|. The acyl-glucose dependent glucosyltransferases (AAGTs) belong in the glycosyl hydroxylase (GH) 1 family and show significant amino acid sequence identities across the taxonomic range indicating that the AAGTs evolved before the divergence of monocots and dicots. The AAGTs very position specifically (either A5 - AA5GT or A7 - AA7GT) glucosylate anthocyanidin 3-<i>O</i>-glucosides such as |FRAME:CPD1F-766 cyanidin-3-<i>O</i>-&beta;-D-glucoside| (see |FRAME:PWY-7256 cyanidin diglucoside biosynthesis (acyl-glucose dependent)|), |FRAME:PELARGONIDIN-3-GLUCOSIDE-CMPD pelargonidin-3-<i>O</i>-&beta;-D-glucoside| (see |FRAME:PWY-7259 pelargonidin diglucoside biosynthesis (acyl-glucose dependent)|) and |FRAME:CPD-7117 delphinidin-3-<i>O</i>-&beta;-D-glucoside| (this pathway). According to the structural properties, the AAGTs belong to the glycosyl hydroxylases, however their &beta;-glucosidase activity is only 4 - 6% of the corresponding glucosyltransferase activity emphasizing a novel enzymatic property probably developed over the course of evolution of their host species |CITS:[20971893] [22048706] [22673029]|. Various genes in <i>Arabidopsis thaliana</i> have also been identified as candidates for acyl-dependent anthocyanin 5 and 7 glucosyltransferases but their molecular function remains to be shown experimentally |CITS:[Miyahara11]|.     
+/
+CREDITS - O-28
+CREDITS - hartmut
+PATHWAY-LINKS - (CPD-7117 PWY-7261 PWY-5153)
+PREDECESSORS - ("RXN-14442" "RXN-14448")
+PREDECESSORS - ("RXN-14442" "RXN-14441")
+PREDECESSORS - ("RXN-14441")
+PRIMARIES - ("RXN-14448" ("CPD-7117") ("CPD-15290"))
+PRIMARIES - ("RXN-14442" ("CPD-7117") ("CPD-15290"))
+PRIMARIES - ("RXN-14441" ("CPD-7117") ("CPD-7139"))
+REACTION-LAYOUT - (RXN-14448 (:LEFT-PRIMARIES CPD-7117) (:DIRECTION :L2R) (:RIGHT-PRIMARIES CPD-15290))
+REACTION-LAYOUT - (RXN-14442 (:LEFT-PRIMARIES CPD-7117) (:DIRECTION :L2R) (:RIGHT-PRIMARIES CPD-15290))
+REACTION-LAYOUT - (RXN-14441 (:LEFT-PRIMARIES CPD-7117 CPD-7117) (:DIRECTION :L2R) (:RIGHT-PRIMARIES CPD-7139))
+REACTION-LIST - RXN-14448
+REACTION-LIST - RXN-14442
+//
